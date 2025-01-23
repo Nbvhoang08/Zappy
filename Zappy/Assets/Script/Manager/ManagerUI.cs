@@ -15,6 +15,7 @@ public class ManagerUI : Singleton<ManagerUI>
     void Start()
     {
         OpenUI<LevelUI>();
+        //OpenUI<InGame>();
     }
     // Khởi tạo tất cả UI Canvas, đặt chúng ở trạng thái không hoạt động
     private void InitializeUICanvases()

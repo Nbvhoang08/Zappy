@@ -1,18 +1,37 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class Subject : MonoBehaviour
+public static class Subject 
 {
-    // Start is called before the first frame update
-    void Start()
+    // Danh sách các Observer đã đăng ký
+    private static List<IObserver> observers = new List<IObserver>();
+    // Thêm một Observer vào danh sách
+    public static void RegisterObserver(IObserver observer)
     {
-        
+        if (!observers.Contains(observer))
+        {
+            observers.Add(observer);
+            
+        }
+
     }
 
-    // Update is called once per frame
-    void Update()
+    // Gỡ bỏ một Observer khỏi danh sách
+    public static void UnregisterObserver(IObserver observer)
     {
-        
+        if (observers.Contains(observer))
+        {
+            observers.Remove(observer);
+        }
+    }
+
+    // Thông báo sự kiện đến tất cả Observers
+    public static void NotifyObservers(string eventName, object eventData = null)
+    {
+        // Tạo một bản sao danh sách trước khi duyệt
+        var observersCopy = new List<IObserver>(observers);
+        foreach (var observer in observersCopy)
+        {
+            observer.OnNotify(eventName, eventData);
+        }
     }
 }
